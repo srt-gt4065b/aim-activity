@@ -1,0 +1,796 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1c2430">
+<title>AIM Activity Log · AI경영학과 격주 활동 입력</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23c8372d'/%3E%3Cpath d='M16 46 28 16h8l12 30h-8l-2-6H26l-2 6zm12-12h8l-4-11z' fill='%23fbf8f1'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans+KR:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f4efe4; --paper-2:#fbf8f1; --paper-3:#ece5d5;
+  --ink:#1c2430; --ink-2:#4a5463; --ink-3:#7c8492;
+  --line:#d8cfbc; --line-2:#c4b99f;
+  --seal:#c8372d; --seal-ink:#9d2a22;
+  --c-enrollment:#2f6f5e; --c-retention:#1f3a5f; --c-employment:#b5532a; --c-teaching:#8a6d1f; --c-other:#5d6470;
+  --serif:"Gowun Batang","Noto Serif SC",Georgia,serif;
+  --sans:"IBM Plex Sans KR","Noto Sans SC","Apple SD Gothic Neo","Malgun Gothic","PingFang SC","Microsoft YaHei",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --shadow:0 1px 0 #fff inset,0 14px 34px -18px rgba(28,36,48,.45);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; min-height:100vh; min-height:100dvh; color:var(--ink); font-family:var(--sans); font-size:16px; line-height:1.55;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .11 0 0 0 0 .14 0 0 0 0 .19 0 0 0 .055 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"),
+    repeating-linear-gradient(180deg,transparent 0 31px,rgba(31,58,95,.05) 31px 32px),
+    var(--paper);
+}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none;padding:0;-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:2px solid var(--seal);outline-offset:2px;border-radius:6px}
+[hidden]{display:none!important}
+
+/* ── top bar ───────────────────────────────────────────── */
+.top{position:sticky;top:0;z-index:30;background:var(--ink);color:var(--paper-2);
+  padding:calc(10px + env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) 10px max(16px,env(safe-area-inset-left));
+  display:flex;align-items:center;gap:12px;justify-content:space-between;border-bottom:3px double rgba(251,248,241,.35)}
+.brand{display:flex;align-items:center;gap:11px;min-width:0}
+.seal{flex:none;width:40px;height:40px;border-radius:9px;background:var(--seal);color:var(--paper-2);display:grid;place-items:center;
+  font-family:var(--serif);font-weight:700;font-size:15px;letter-spacing:.04em;transform:rotate(-4deg);box-shadow:0 0 0 2px var(--ink),0 0 0 3px var(--seal)}
+.brand h1{margin:0;font-family:var(--serif);font-size:17px;font-weight:700;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand p{margin:1px 0 0;font-size:11.5px;letter-spacing:.06em;color:rgba(251,248,241,.62);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top-actions{display:flex;align-items:center;gap:8px;flex:none}
+.lang{display:flex;border:1px solid rgba(251,248,241,.3);border-radius:999px;padding:2px}
+.lang button{min-width:34px;height:30px;padding:0 9px;border-radius:999px;font-size:13px;font-weight:600;color:rgba(251,248,241,.72)}
+.lang button[aria-pressed="true"]{background:var(--paper-2);color:var(--ink)}
+.me-chip{display:flex;align-items:center;gap:7px;height:34px;padding:0 12px 0 10px;border-radius:999px;background:rgba(251,248,241,.12);
+  color:var(--paper-2);font-size:13.5px;font-weight:600;max-width:42vw}
+.me-chip span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.me-chip i{flex:none;width:8px;height:8px;border-radius:50%;background:#6fcf97;box-shadow:0 0 0 3px rgba(111,207,151,.22)}
+.me-chip i.off{background:#e0a23a;box-shadow:0 0 0 3px rgba(224,162,58,.25)}
+
+/* ── layout ────────────────────────────────────────────── */
+.layout{max-width:1180px;margin:0 auto;padding:18px max(14px,env(safe-area-inset-right)) 120px max(14px,env(safe-area-inset-left))}
+.card{background:var(--paper-2);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
+.eyebrow{font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+
+/* period ticket */
+.period{display:grid;grid-template-columns:44px 1fr 44px;align-items:center;gap:6px;padding:10px 8px;position:relative;overflow:hidden}
+.period::before,.period::after{content:"";position:absolute;top:50%;width:18px;height:18px;border-radius:50%;background:var(--paper);border:1px solid var(--line);transform:translateY(-50%)}
+.period::before{left:-10px}.period::after{right:-10px}
+.nav-btn{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;color:var(--ink-2);z-index:1}
+.nav-btn:hover{background:var(--paper-3)}
+.nav-btn:disabled{opacity:.3;cursor:default}
+.period-mid{text-align:center;min-width:0}
+.period-range{font-family:var(--mono);font-size:clamp(21px,6.2vw,28px);font-weight:600;letter-spacing:-.02em;line-height:1.15;white-space:nowrap}
+.period-range small{font-size:.5em;color:var(--ink-3);font-weight:500;margin-left:6px;letter-spacing:.04em}
+.period-sub{display:flex;gap:8px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:5px}
+.pill{height:28px;padding:0 11px;border-radius:999px;border:1px solid var(--line-2);font-size:12.5px;font-weight:600;color:var(--ink-2);background:transparent}
+.pill[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper-2)}
+.badge-now{font-size:11.5px;font-weight:600;color:var(--seal-ink);letter-spacing:.06em}
+
+/* stats = category filter */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.stat{position:relative;text-align:left;padding:10px 12px 9px 15px;border-radius:12px;background:var(--paper-2);border:1px solid var(--line);min-height:62px;overflow:hidden}
+.stat::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--c,var(--ink))}
+.stat b{display:block;font-family:var(--mono);font-size:22px;line-height:1.1}
+.stat span{display:block;font-size:12.5px;color:var(--ink-2);line-height:1.25;margin-top:3px}
+.stat[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper-2)}
+.stat[aria-pressed="true"] span{color:rgba(251,248,241,.78)}
+
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:16px 0 8px}
+.seg{display:inline-flex;border:1px solid var(--line-2);border-radius:10px;padding:3px;background:var(--paper-2)}
+.seg button{height:36px;padding:0 14px;border-radius:7px;font-size:14px;font-weight:600;color:var(--ink-2)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper-2)}
+.link-btn{height:36px;padding:0 10px;font-size:13.5px;font-weight:600;color:var(--c-retention);text-decoration:underline;text-underline-offset:3px;border-radius:8px}
+
+/* ledger rows */
+.rows{display:grid;gap:9px}
+.row{display:grid;grid-template-columns:68px 1fr;gap:0 12px;padding:13px 14px 12px 0;background:var(--paper-2);border:1px solid var(--line);border-radius:12px;position:relative;overflow:hidden;animation:rise .35s both}
+.row::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--c)}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}}
+.row-date{padding:1px 8px 0 13px;text-align:center;border-right:1px dashed var(--line-2);align-self:stretch;display:flex;flex-direction:column;justify-content:flex-start}
+.row-date b{font-family:var(--mono);font-size:15.5px;font-weight:600;letter-spacing:-.03em}
+.row-date span{font-size:12px;color:var(--ink-3)}
+.row-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin-bottom:5px}
+.tag{font-size:12px;font-weight:600;color:var(--c);letter-spacing:.01em}
+.stamp{font-family:var(--serif);font-size:12px;font-weight:700;line-height:1;padding:4px 7px 3px;border-radius:5px;border:1.5px solid currentColor;transform:rotate(-2deg)}
+.stamp-achieved{color:var(--seal)}
+.stamp-planned{color:var(--c-retention);border-style:dashed}
+.stamp-ongoing{color:var(--c-teaching);border-style:dotted}
+.who{font-size:12.5px;font-weight:600;color:var(--ink-2);margin-left:auto}
+.row-desc{margin:0;font-size:15.5px;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere}
+.row-notes{margin:5px 0 0;font-size:13.5px;color:var(--ink-2);white-space:pre-wrap;overflow-wrap:anywhere;padding-left:10px;border-left:2px solid var(--line)}
+.row-actions{display:flex;gap:6px;margin-top:9px}
+.mini{height:34px;padding:0 12px;border-radius:8px;border:1px solid var(--line-2);font-size:13px;font-weight:600;color:var(--ink-2);background:transparent}
+.mini:hover{background:var(--paper-3)}
+.mini.danger{color:var(--seal-ink);border-color:rgba(200,55,45,.45)}
+.mini.danger.armed{background:var(--seal);border-color:var(--seal);color:#fff}
+.empty{padding:38px 18px;text-align:center;color:var(--ink-2);border:1px dashed var(--line-2);border-radius:12px;background:rgba(251,248,241,.6)}
+.empty b{display:block;font-family:var(--serif);font-size:18px;color:var(--ink);margin-bottom:4px}
+
+/* ── composer (bottom sheet on phones, side panel on desktop) ── */
+.composer{position:fixed;left:0;right:0;bottom:0;z-index:50;max-height:92dvh;overflow:auto;border-radius:20px 20px 0 0;
+  padding:8px 16px calc(18px + env(safe-area-inset-bottom));transform:translateY(105%);transition:transform .32s cubic-bezier(.2,.8,.2,1);
+  background:var(--paper-2);border:1px solid var(--line);box-shadow:0 -18px 50px -20px rgba(28,36,48,.55)}
+body.sheet-open .composer{transform:none}
+.grab{width:44px;height:5px;border-radius:5px;background:var(--line-2);margin:4px auto 10px}
+.composer-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:12px}
+.composer-head h2{margin:0;font-family:var(--serif);font-size:21px}
+.composer-head .by{font-size:13px;color:var(--ink-2);font-weight:600}
+.close-x{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:var(--ink-2);margin:-6px -8px 0 0}
+.field{margin-bottom:14px}
+.field>label,.field>.lbl{display:block;font-size:12.5px;font-weight:600;letter-spacing:.06em;color:var(--ink-2);margin-bottom:6px}
+.field em{font-style:normal;font-weight:500;color:var(--ink-3);letter-spacing:0}
+input[type=date],input[type=text],textarea{width:100%;border:1px solid var(--line-2);border-radius:10px;background:#fff;padding:11px 12px;font-size:16px;line-height:1.45}
+textarea{resize:vertical;min-height:112px}
+input:focus,textarea:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px rgba(31,58,95,.14)}
+.choice{display:grid;gap:7px}
+.choice.cats{grid-template-columns:repeat(2,1fr)}
+.choice.types{grid-template-columns:repeat(3,1fr)}
+.choice label{position:relative;display:block}
+.choice input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+.choice span{display:flex;align-items:center;gap:8px;min-height:46px;padding:8px 11px;border:1px solid var(--line-2);border-radius:10px;background:#fff;font-size:14.5px;font-weight:500;line-height:1.25}
+.choice.cats span::before{content:"";flex:none;width:9px;height:9px;border-radius:50%;background:var(--c)}
+.choice.types span{justify-content:center;text-align:center}
+.choice input:checked+span{background:var(--ink);border-color:var(--ink);color:var(--paper-2)}
+.choice input:focus-visible+span{outline:2px solid var(--seal);outline-offset:2px}
+.choice.cats label:last-child{grid-column:1/-1}
+.submit{width:100%;height:52px;border-radius:12px;background:var(--seal);color:#fff;font-size:16.5px;font-weight:600;letter-spacing:.02em;box-shadow:0 10px 22px -12px var(--seal)}
+.submit:hover{background:var(--seal-ink)}
+.submit:disabled{opacity:.55;cursor:default}
+.ghost{width:100%;height:44px;margin-top:8px;border-radius:12px;border:1px solid var(--line-2);font-weight:600;color:var(--ink-2)}
+.form-err{color:var(--seal-ink);font-size:13.5px;font-weight:600;margin:-4px 0 10px;min-height:0}
+.fab{position:fixed;z-index:40;right:max(16px,env(safe-area-inset-right));bottom:calc(18px + env(safe-area-inset-bottom));height:56px;padding:0 22px 0 18px;border-radius:999px;
+  background:var(--seal);color:#fff;font-size:16px;font-weight:600;display:flex;align-items:center;gap:8px;box-shadow:0 16px 30px -12px rgba(157,42,34,.8)}
+.fab svg{flex:none}
+.scrim{position:fixed;inset:0;z-index:45;background:rgba(28,36,48,.5);opacity:0;pointer-events:none;transition:opacity .25s}
+body.sheet-open .scrim,body.modal-open .scrim{opacity:1;pointer-events:auto}
+
+/* ── modal: choose name ───────────────────────────────── */
+.modal{position:fixed;inset:0;z-index:60;display:grid;place-items:end center;pointer-events:none}
+.modal-box{pointer-events:auto;width:min(640px,100%);max-height:92dvh;overflow:auto;background:var(--paper-2);border-radius:20px 20px 0 0;border:1px solid var(--line);
+  padding:20px 16px calc(20px + env(safe-area-inset-bottom));box-shadow:0 -18px 50px -20px rgba(28,36,48,.6);animation:up .3s both}
+@keyframes up{from{transform:translateY(40px);opacity:0}}
+.modal-box h2{margin:2px 0 4px;font-family:var(--serif);font-size:24px}
+.modal-box>p{margin:0 0 14px;color:var(--ink-2);font-size:14.5px}
+.roster{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:8px}
+.roster button{min-height:50px;padding:8px 10px;border-radius:10px;border:1px solid var(--line-2);background:#fff;font-size:15px;font-weight:600;text-align:center;line-height:1.25;overflow-wrap:anywhere}
+.roster button:hover{border-color:var(--ink)}
+.roster button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper-2)}
+.add-name{display:flex;gap:8px;margin-top:14px;padding-top:14px;border-top:1px dashed var(--line-2)}
+.add-name input{flex:1;min-width:0}
+.add-name button{flex:none;height:48px;padding:0 16px;border-radius:10px;background:var(--ink);color:var(--paper-2);font-weight:600}
+
+/* ── gate ─────────────────────────────────────────────── */
+.gate{max-width:520px;margin:9vh auto 0;padding:28px 22px;text-align:center}
+.gate .seal{width:64px;height:64px;font-size:22px;margin:0 auto 18px;border-radius:14px}
+.gate h2{font-family:var(--serif);font-size:26px;margin:0 0 8px}
+.gate p{color:var(--ink-2);margin:0 0 18px}
+.gate form{display:flex;gap:8px}
+.gate input{flex:1;min-width:0}
+.gate button{flex:none;height:48px;padding:0 18px;border-radius:10px;background:var(--ink);color:var(--paper-2);font-weight:600}
+.demo-bar{background:var(--c-teaching);color:#fff;text-align:center;font-size:13px;font-weight:600;padding:6px 12px;letter-spacing:.04em}
+.toast{position:fixed;left:50%;bottom:calc(90px + env(safe-area-inset-bottom));transform:translate(-50%,20px);z-index:80;background:var(--ink);color:var(--paper-2);
+  padding:11px 18px;border-radius:999px;font-size:14.5px;font-weight:600;opacity:0;pointer-events:none;transition:.25s;max-width:92vw;text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.foot{margin-top:26px;text-align:center;font-size:12.5px;color:var(--ink-3)}
+
+/* ── phones: brand on its own line so the title is never cut ── */
+@media (max-width:719px){
+  .top{position:static;flex-wrap:wrap;row-gap:10px}
+  .brand{flex:1 1 100%}
+  .brand h1{white-space:normal;font-size:18px}
+  .top-actions{flex:1 1 100%;justify-content:space-between}
+  .me-chip{max-width:58vw;height:36px}
+  .lang button{min-width:40px;height:32px}
+}
+
+/* ── desktop ──────────────────────────────────────────── */
+@media (min-width:980px){
+  .top{padding:14px 28px}
+  .brand h1{font-size:20px}.brand p{font-size:12.5px}
+  .layout{display:grid;grid-template-columns:400px 1fr;gap:28px;align-items:start;padding:28px 28px 60px}
+  .composer{position:sticky;top:96px;transform:none;max-height:calc(100dvh - 120px);border-radius:16px;padding:20px 20px 22px;box-shadow:var(--shadow);z-index:1}
+  .grab,.close-x,.fab{display:none}
+  body.sheet-open .scrim{opacity:0;pointer-events:none}
+  .stats{grid-template-columns:repeat(6,1fr)}
+  .row{grid-template-columns:76px 1fr;padding:15px 16px 14px 0}
+  .row-date b{font-size:17px}
+  .modal{place-items:center}
+  .modal-box{border-radius:18px;padding:26px 24px}
+  .toast{bottom:36px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="demoBar" class="demo-bar" hidden></div>
+
+<header class="top">
+  <div class="brand">
+    <div class="seal" aria-hidden="true">AIM</div>
+    <div style="min-width:0">
+      <h1 data-t="title"></h1>
+      <p data-t="subtitle"></p>
+    </div>
+  </div>
+  <div class="top-actions">
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="ko" lang="ko">한</button>
+      <button type="button" data-lang="en" lang="en">EN</button>
+      <button type="button" data-lang="zh" lang="zh">中</button>
+    </div>
+    <button type="button" class="me-chip" id="meBtn" hidden><i id="conn"></i><span id="meName"></span></button>
+  </div>
+</header>
+
+<!-- access gate (no / wrong link) -->
+<section class="gate card" id="gate" hidden>
+  <div class="seal" aria-hidden="true">AIM</div>
+  <h2 id="gateTitle"></h2>
+  <p id="gateText"></p>
+  <form id="gateForm">
+    <input type="text" id="gateInput" autocomplete="off" autocapitalize="off" spellcheck="false">
+    <button type="submit" data-t="gateGo"></button>
+  </form>
+</section>
+
+<main class="layout" id="main" hidden>
+  <!-- entry form -->
+  <section class="composer" id="composer" aria-labelledby="formTitle">
+    <div class="grab" aria-hidden="true"></div>
+    <div class="composer-head">
+      <div>
+        <h2 id="formTitle"></h2>
+        <div class="by" id="formBy"></div>
+      </div>
+      <button type="button" class="close-x" id="closeSheet" aria-label="Close">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4l12 12M16 4L4 16"/></svg>
+      </button>
+    </div>
+    <form id="entryForm" novalidate>
+      <div class="field">
+        <label for="fDate" data-t="fDate"></label>
+        <input type="date" id="fDate" required>
+      </div>
+      <div class="field">
+        <div class="lbl" data-t="fCategory"></div>
+        <div class="choice cats" id="fCats" role="radiogroup"></div>
+      </div>
+      <div class="field">
+        <div class="lbl" data-t="fType"></div>
+        <div class="choice types" id="fTypes" role="radiogroup"></div>
+      </div>
+      <div class="field">
+        <label for="fDesc" data-t="fDesc"></label>
+        <textarea id="fDesc" maxlength="2000" required></textarea>
+      </div>
+      <div class="field">
+        <label for="fNotes"><span data-t="fNotes"></span> <em data-t="optional"></em></label>
+        <textarea id="fNotes" maxlength="2000" style="min-height:64px"></textarea>
+      </div>
+      <div class="form-err" id="formErr" role="alert"></div>
+      <button type="submit" class="submit" id="submitBtn"></button>
+      <button type="button" class="ghost" id="cancelEdit" hidden data-t="cancelEdit"></button>
+    </form>
+  </section>
+
+  <!-- ledger -->
+  <section class="ledger">
+    <div class="card period">
+      <button type="button" class="nav-btn" id="prevP" aria-label="Previous period">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4l-7 7 7 7"/></svg>
+      </button>
+      <div class="period-mid">
+        <div class="eyebrow" data-t="periodLabel"></div>
+        <div class="period-range" id="pRange"></div>
+        <div class="period-sub">
+          <span class="badge-now" id="pNow"></span>
+          <button type="button" class="pill" id="pToday" data-t="thisPeriod"></button>
+          <button type="button" class="pill" id="pAll" data-t="allPeriods"></button>
+        </div>
+      </div>
+      <button type="button" class="nav-btn" id="nextP" aria-label="Next period">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4l7 7-7 7"/></svg>
+      </button>
+    </div>
+
+    <div class="stats" id="stats"></div>
+
+    <div class="toolbar">
+      <div class="seg" role="group">
+        <button type="button" data-scope="mine" data-t="scopeMine"></button>
+        <button type="button" data-scope="all" data-t="scopeAll"></button>
+      </div>
+      <button type="button" class="link-btn" id="csvBtn" data-t="csv"></button>
+    </div>
+
+    <div class="rows" id="rows" aria-live="polite"></div>
+    <p class="foot" data-t="foot"></p>
+  </section>
+</main>
+
+<button type="button" class="fab" id="fab" hidden>
+  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 3v12M3 9h12"/></svg>
+  <span data-t="newEntry"></span>
+</button>
+<div class="scrim" id="scrim"></div>
+
+<!-- choose your name -->
+<div class="modal" id="nameModal" hidden>
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="nmTitle">
+    <div class="eyebrow" data-t="title"></div>
+    <h2 id="nmTitle" data-t="pickTitle"></h2>
+    <p data-t="pickText"></p>
+    <div class="roster" id="roster"></div>
+    <form class="add-name" id="addNameForm">
+      <input type="text" id="addNameInput" maxlength="40" autocomplete="off">
+      <button type="submit" data-t="addName"></button>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script type="module">
+/* ══════════════════════════════════════════════════════════
+   AIM Activity Log — AI경영학과 격주 활동 입력
+   Single-file app · Firebase Realtime Database · no login
+   Access is by private link:  …/#k=<key>
+   ══════════════════════════════════════════════════════════ */
+const firebaseConfig = {
+  apiKey: "AIzaSyAh1UDNrXrwGCQUBK7bk_OWkaxfMM_MWc8",
+  authDomain: "bbgame-1f434.firebaseapp.com",
+  databaseURL: "https://bbgame-1f434-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "bbgame-1f434",
+  storageBucket: "bbgame-1f434.firebasestorage.app",
+  messagingSenderId: "560605111312",
+  appId: "1:560605111312:web:1317a1285ad85a76769695"
+};
+const FIREBASE_VER = "12.7.0";
+const ROOT = "aimlog";                 // data lives under /aimlog/<key>/…
+const ANCHOR = [2026, 9, 21];          // a Monday that starts a bi-weekly report period
+const CATS  = ["enrollment", "retention", "employment", "teaching", "other"];
+const TYPES = ["achieved", "planned", "ongoing"];
+const DEFAULT_ROSTER = ["김형태","김홍기","김문홍","박상현","조한식","박덕규","이영석","박형근","한인구","채창균","안병섭","김인재","이상원",
+  "유택근","이상복","전우소","이효은","이희권","김윤철","박인철","정순훈","Hayder (하이더)","Muzaffar (무자파)","Umer","Sheeba (JSR)"];
+
+/* ── i18n ─────────────────────────────────────────────── */
+const I18N = {
+  ko: {
+    title:"AI경영학과 격주 활동 입력", subtitle:"BI-WEEKLY KPI ACTIVITY LOG",
+    periodLabel:"보고 기간", thisPeriod:"이번 기간으로", allPeriods:"전체 기간", now:"● 이번 기간", allRange:"전체 기간",
+    scopeMine:"내 활동", scopeAll:"전체 교수", csv:"CSV 내려받기", newEntry:"활동 입력",
+    formNew:"활동 입력", formEdit:"활동 수정", by:"입력자",
+    fDate:"날짜", fCategory:"항목 구분", fType:"구분", fDesc:"활동 내용", fNotes:"참고사항 / 비고", optional:"(선택)",
+    descPh:"예) 고교생 대상 전공체험 행사 진행 (학생 30명 참석)", notesPh:"담당자, 인원, 후속 일정 등",
+    save:"저장하기", saveEdit:"수정 저장", cancelEdit:"수정 취소", saving:"저장 중…",
+    errDesc:"활동 내용을 입력해 주세요.", errDate:"날짜를 선택해 주세요.", errSave:"저장하지 못했습니다. 연결 상태를 확인하고 다시 시도해 주세요.",
+    saved:"저장했습니다", updated:"수정했습니다", deleted:"삭제했습니다", csvDone:"CSV 파일을 내려받았습니다", csvEmpty:"내려받을 활동이 없습니다",
+    edit:"수정", del:"삭제", delConfirm:"한 번 더 누르면 삭제",
+    emptyTitle:"아직 입력된 활동이 없습니다", emptyMine:"이 기간에 입력한 활동이 없습니다. 첫 활동을 입력해 보세요.", emptyAll:"이 기간에 입력된 활동이 없습니다.",
+    all:"전체", cat_enrollment:"신입생 입시", cat_retention:"재학생 충원률", cat_employment:"취업률", cat_teaching:"교육", cat_other:"기타",
+    type_achieved:"실적", type_planned:"계획", type_ongoing:"진행 중",
+    pickTitle:"이름을 선택하세요", pickText:"로그인 없이 이름만 선택하면 됩니다. 선택한 이름은 이 기기에 기억됩니다.",
+    addNamePh:"목록에 없으면 이름 입력", addName:"추가", nameExists:"이미 목록에 있는 이름입니다",
+    gateTitle:"교수진 전용 링크가 필요합니다", gateText:"학과에서 공유한 링크로 접속하거나, 받은 링크를 아래에 붙여넣어 주세요.",
+    gateDeniedTitle:"링크가 올바르지 않습니다", gateDeniedText:"접근 키가 맞지 않습니다. 학과에서 공유한 최신 링크를 붙여넣어 주세요.",
+    gatePh:"링크 또는 접근 키 붙여넣기", gateGo:"확인",
+    demo:"DEMO — 이 화면의 데이터는 예시이며 저장되지 않습니다", offline:"연결 끊김",
+    foot:"입력한 활동은 격주 업무보고에 반영됩니다.",
+    csvHead:["날짜","교수명","항목 구분","구분","활동 내용","참고사항 / 비고","보고 기간"]
+  },
+  en: {
+    title:"AI Management Bi-Weekly Activity Log", subtitle:"AI경영학과 · KPI ACTIVITY LOG",
+    periodLabel:"Report period", thisPeriod:"Go to current", allPeriods:"All periods", now:"● Current period", allRange:"All periods",
+    scopeMine:"My entries", scopeAll:"All faculty", csv:"Download CSV", newEntry:"Add activity",
+    formNew:"Add activity", formEdit:"Edit activity", by:"Entered by",
+    fDate:"Date", fCategory:"KPI category", fType:"Type", fDesc:"Activity description", fNotes:"Notes / remarks", optional:"(optional)",
+    descPh:"e.g. Ran a major-experience session for high-school students (30 attended)", notesPh:"People involved, numbers, follow-ups…",
+    save:"Save", saveEdit:"Save changes", cancelEdit:"Cancel editing", saving:"Saving…",
+    errDesc:"Please describe the activity.", errDate:"Please choose a date.", errSave:"Could not save. Check your connection and try again.",
+    saved:"Saved", updated:"Updated", deleted:"Deleted", csvDone:"CSV downloaded", csvEmpty:"Nothing to download",
+    edit:"Edit", del:"Delete", delConfirm:"Tap again to delete",
+    emptyTitle:"No activities yet", emptyMine:"You have no entries in this period. Add your first one.", emptyAll:"No entries in this period.",
+    all:"All", cat_enrollment:"Enrollment", cat_retention:"Retention", cat_employment:"Employment", cat_teaching:"Teaching", cat_other:"Other",
+    type_achieved:"Achieved", type_planned:"Planned", type_ongoing:"Ongoing",
+    pickTitle:"Select your name", pickText:"No login needed — just pick your name. This device will remember it.",
+    addNamePh:"Not listed? Type your name", addName:"Add", nameExists:"That name is already on the list",
+    gateTitle:"Faculty link required", gateText:"Open the link shared by the department, or paste it below.",
+    gateDeniedTitle:"This link is not valid", gateDeniedText:"The access key did not match. Paste the latest link shared by the department.",
+    gatePh:"Paste the link or access key", gateGo:"Open",
+    demo:"DEMO — sample data only, nothing is saved", offline:"Offline",
+    foot:"Entries feed the department's bi-weekly report.",
+    csvHead:["Date","Professor","KPI Category","Type","Activity Description","Notes / Remarks","Report Period"]
+  },
+  zh: {
+    title:"AI经营学系 双周活动录入", subtitle:"AI경영학과 · KPI ACTIVITY LOG",
+    periodLabel:"报告期间", thisPeriod:"回到本期", allPeriods:"全部期间", now:"● 本期", allRange:"全部期间",
+    scopeMine:"我的活动", scopeAll:"全体教授", csv:"下载 CSV", newEntry:"录入活动",
+    formNew:"录入活动", formEdit:"修改活动", by:"录入人",
+    fDate:"日期", fCategory:"指标分类", fType:"类型", fDesc:"活动内容", fNotes:"备注", optional:"（选填）",
+    descPh:"例）面向高中生举办专业体验活动（30人参加）", notesPh:"负责人、人数、后续安排等",
+    save:"保存", saveEdit:"保存修改", cancelEdit:"取消修改", saving:"保存中…",
+    errDesc:"请填写活动内容。", errDate:"请选择日期。", errSave:"保存失败，请检查网络后重试。",
+    saved:"已保存", updated:"已修改", deleted:"已删除", csvDone:"CSV 已下载", csvEmpty:"没有可下载的活动",
+    edit:"修改", del:"删除", delConfirm:"再点一次删除",
+    emptyTitle:"还没有活动记录", emptyMine:"本期您还没有录入活动，请录入第一条。", emptyAll:"本期没有活动记录。",
+    all:"全部", cat_enrollment:"新生招生", cat_retention:"在校生保留率", cat_employment:"就业率", cat_teaching:"教学", cat_other:"其他",
+    type_achieved:"已完成", type_planned:"计划", type_ongoing:"进行中",
+    pickTitle:"请选择您的姓名", pickText:"无需登录，只需选择姓名。本设备会记住您的选择。",
+    addNamePh:"列表中没有？请输入姓名", addName:"添加", nameExists:"该姓名已在列表中",
+    gateTitle:"需要教授专用链接", gateText:"请通过系里分享的链接访问，或将链接粘贴到下方。",
+    gateDeniedTitle:"链接无效", gateDeniedText:"访问密钥不匹配，请粘贴系里分享的最新链接。",
+    gatePh:"粘贴链接或访问密钥", gateGo:"确认",
+    demo:"DEMO — 以下为示例数据，不会保存", offline:"连接已断开",
+    foot:"录入的活动将用于双周工作报告。",
+    csvHead:["日期","教授","指标分类","类型","活动内容","备注","报告期间"]
+  }
+};
+const LOCALE = { ko:"ko-KR", en:"en-US", zh:"zh-CN" };
+
+/* ── small helpers ────────────────────────────────────── */
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+const ls = {
+  get(k){ try { return localStorage.getItem(k); } catch { return null; } },
+  set(k, v){ try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch {} }
+};
+const pad = n => String(n).padStart(2, "0");
+const ymd = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+const parseYmd = s => { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); };
+const dayNo = d => Math.round(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 864e5);
+const ANCHOR_NO = dayNo(new Date(ANCHOR[0], ANCHOR[1] - 1, ANCHOR[2]));
+const periodOf = s => Math.floor((dayNo(parseYmd(s)) - ANCHOR_NO) / 14);
+const periodRange = i => {
+  const a = new Date(ANCHOR[0], ANCHOR[1] - 1, ANCHOR[2] + i * 14);
+  const b = new Date(ANCHOR[0], ANCHOR[1] - 1, ANCHOR[2] + i * 14 + 13);
+  return [a, b];
+};
+const today = () => ymd(new Date());
+
+/* ── state ────────────────────────────────────────────── */
+const params = new URLSearchParams(location.search);
+const DEMO = params.has("demo");
+const state = {
+  lang: ls.get("aimlog.lang") || ({ ko:"ko", zh:"zh" }[(navigator.language || "en").slice(0, 2)] || "en"),
+  me: ls.get(DEMO ? "aimlog.demo.me" : "aimlog.me") || "",
+  key: "",
+  roster: [],
+  entries: {},            // id → entry (for the loaded period)
+  period: periodOf(today()),   // number, or null for "all periods"
+  scope: "mine",
+  cat: "all",
+  editing: null,
+  connected: true,
+  loaded: false
+};
+const t = k => (I18N[state.lang] && I18N[state.lang][k]) ?? I18N.en[k] ?? k;
+
+/* ── data stores ──────────────────────────────────────── */
+function demoStore() {
+  const d = (off) => { const x = new Date(); x.setDate(x.getDate() + off); return ymd(x); };
+  let n = 0; const id = () => "demo" + (++n);
+  const roster = ["Demo 교수 A", "Demo 교수 B", "Demo Prof. C"];
+  const all = {};
+  [
+    [d(-1), "Demo 교수 A", "retention", "achieved", "(예시) 신입생 교류회 진행 — 재학생·교수진 참석", "예시 데이터입니다"],
+    [d(-3), "Demo 교수 A", "employment", "achieved", "(예시) 4학년 취업 상담 3명", ""],
+    [d(-2), "Demo 교수 B", "enrollment", "ongoing", "(Sample) High-school major-experience session planning", "Sample data"],
+    [d(2),  "Demo Prof. C", "teaching", "planned", "(示例) 准备期中考试试题", ""],
+    [d(-5), "Demo 교수 B", "other", "achieved", "(예시) 학과 교수회의 참석", ""]
+  ].forEach(([date, professor, category, type, description, notes]) => { all[id()] = { date, professor, category, type, description, notes, createdAt: Date.now() - n * 1000 }; });
+  let entriesCb = null, range = null, rosterCb = null;
+  const emit = () => {
+    if (!entriesCb) return;
+    const out = {};
+    for (const [k, e] of Object.entries(all)) if (!range || (e.date >= range[0] && e.date <= range[1])) out[k] = e;
+    entriesCb(out);
+  };
+  return {
+    start(cbs) { rosterCb = cbs.onRoster; rosterCb(roster.slice()); cbs.onStatus(true); },
+    watchEntries(r, cb) { range = r; entriesCb = cb; emit(); },
+    async addEntry(e) { all[id()] = e; emit(); },
+    async updateEntry(k, e) { all[k] = { ...all[k], ...e }; emit(); },
+    async removeEntry(k) { delete all[k]; emit(); },
+    async addProfessor(name) { roster.push(name); rosterCb(roster.slice()); }
+  };
+}
+
+async function firebaseStore(key) {
+  const base = `https://www.gstatic.com/firebasejs/${FIREBASE_VER}`;
+  const [{ initializeApp }, db] = await Promise.all([import(`${base}/firebase-app.js`), import(`${base}/firebase-database.js`)]);
+  const app = initializeApp(firebaseConfig);
+  const database = db.getDatabase(app);
+  const path = p => db.ref(database, `${ROOT}/${key}/${p}`);
+  let unsubEntries = null, cbs = null;
+  const denied = err => { if (err && /permission/i.test(err.code || err.message || "")) cbs.onDenied(); else console.error(err); };
+  return {
+    start(c) {
+      cbs = c;
+      db.onValue(db.ref(database, ".info/connected"), s => c.onStatus(!!s.val()));
+      db.onValue(path("professors"), snap => {
+        const v = snap.val();
+        if (!v) {   // first visit ever: seed the roster once
+          const seed = {};
+          DEFAULT_ROSTER.forEach((name, i) => { seed["p" + pad(i)] = { name, order: i, createdAt: Date.now() }; });
+          db.update(path("professors"), seed).catch(denied);   // fixed ids ⇒ safe if two people open it at once
+          return;
+        }
+        c.onRoster(Object.values(v).sort((a, b) => (a.order ?? 999) - (b.order ?? 999) || (a.createdAt || 0) - (b.createdAt || 0)).map(p => p.name));
+      }, denied);
+    },
+    watchEntries(range, cb) {
+      if (unsubEntries) unsubEntries();
+      const q = range
+        ? db.query(path("entries"), db.orderByChild("date"), db.startAt(range[0]), db.endAt(range[1]))
+        : path("entries");
+      unsubEntries = db.onValue(q, snap => cb(snap.val() || {}), denied);
+    },
+    addEntry: e => db.set(db.push(path("entries")), e),
+    updateEntry: (id, e) => db.update(path(`entries/${id}`), e),
+    removeEntry: id => db.remove(path(`entries/${id}`)),
+    addProfessor: name => db.set(db.push(path("professors")), { name, order: 500, createdAt: Date.now() })
+  };
+}
+
+/* ── formatting ───────────────────────────────────────── */
+function fmtRange(i) {
+  const [a, b] = periodRange(i);
+  if (state.lang === "en") {
+    const f = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric" });
+    return `${f.format(a)} – ${f.format(b)}<small>${b.getFullYear()}</small>`;
+  }
+  return `${a.getMonth() + 1}.${pad(a.getDate())} – ${b.getMonth() + 1}.${pad(b.getDate())}<small>${b.getFullYear()}</small>`;
+}
+const fmtRangePlain = i => { const [a, b] = periodRange(i); return `${ymd(a)} ~ ${ymd(b)}`; };
+const weekday = s => new Intl.DateTimeFormat(LOCALE[state.lang], { weekday: "short" }).format(parseYmd(s));
+
+/* ── rendering ────────────────────────────────────────── */
+function applyI18n() {
+  document.documentElement.lang = state.lang === "zh" ? "zh-CN" : state.lang;
+  document.title = t("title");
+  $$("[data-t]").forEach(el => { el.textContent = t(el.dataset.t); });
+  $$(".lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === state.lang)));
+  $("#fDesc").placeholder = t("descPh");
+  $("#fNotes").placeholder = t("notesPh");
+  $("#addNameInput").placeholder = t("addNamePh");
+  $("#gateInput").placeholder = t("gatePh");
+  $("#demoBar").textContent = t("demo");
+  $("#fCats").innerHTML = CATS.map(c => `<label style="--c:var(--c-${c})"><input type="radio" name="cat" value="${c}"><span>${esc(t("cat_" + c))}</span></label>`).join("");
+  $("#fTypes").innerHTML = TYPES.map(c => `<label><input type="radio" name="type" value="${c}"><span>${esc(t("type_" + c))}</span></label>`).join("");
+  setFormChoice(formChoice.cat, formChoice.type);
+  renderGate(); renderForm(); renderAll();
+}
+const formChoice = { cat: "retention", type: "achieved" };
+function setFormChoice(cat, type) {
+  formChoice.cat = cat; formChoice.type = type;
+  const c = $(`#fCats input[value="${cat}"]`); if (c) c.checked = true;
+  const y = $(`#fTypes input[value="${type}"]`); if (y) y.checked = true;
+}
+function renderForm() {
+  const editing = state.editing && state.entries[state.editing];
+  $("#formTitle").textContent = t(editing ? "formEdit" : "formNew");
+  $("#formBy").textContent = state.me ? `${t("by")} · ${state.me}` : "";
+  $("#submitBtn").textContent = t(editing ? "saveEdit" : "save");
+  $("#cancelEdit").hidden = !editing;
+}
+function visibleEntries() {
+  return Object.entries(state.entries)
+    .map(([id, e]) => ({ id, ...e }))
+    .filter(e => state.scope === "all" || e.professor === state.me)
+    .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : (b.createdAt || 0) - (a.createdAt || 0)));
+}
+function renderAll() {
+  if (!state.loaded) return;
+  // me chip
+  $("#meName").textContent = state.me || "—";
+  $("#conn").className = state.connected ? "" : "off";
+  $("#conn").title = state.connected ? "" : t("offline");
+  // period ticket
+  const cur = periodOf(today());
+  $("#pRange").innerHTML = state.period == null ? esc(t("allRange")) : fmtRange(state.period);
+  $("#pNow").textContent = state.period === cur ? t("now") : "";
+  $("#pToday").hidden = state.period === cur;
+  $("#pAll").setAttribute("aria-pressed", String(state.period == null));
+  $("#prevP").disabled = $("#nextP").disabled = state.period == null;
+  $$(".seg button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.scope === state.scope)));
+  // stats (also the category filter)
+  const list = visibleEntries();
+  const count = c => list.filter(e => e.category === c).length;
+  $("#stats").innerHTML =
+    `<button type="button" class="stat" data-cat="all" aria-pressed="${state.cat === "all"}"><b>${list.length}</b><span>${esc(t("all"))}</span></button>` +
+    CATS.map(c => `<button type="button" class="stat" data-cat="${c}" style="--c:var(--c-${c})" aria-pressed="${state.cat === c}"><b>${count(c)}</b><span>${esc(t("cat_" + c))}</span></button>`).join("");
+  // rows
+  const shown = list.filter(e => state.cat === "all" || e.category === state.cat);
+  $("#rows").innerHTML = shown.length ? shown.map((e, i) => {
+    const d = parseYmd(e.date);
+    const mine = e.professor === state.me;
+    return `<article class="row" style="--c:var(--c-${esc(e.category)});animation-delay:${Math.min(i, 8) * 35}ms" data-id="${esc(e.id)}">
+      <div class="row-date"><b>${d.getMonth() + 1}.${pad(d.getDate())}</b><span>${esc(weekday(e.date))}</span></div>
+      <div class="row-body">
+        <div class="row-meta"><span class="tag">${esc(t("cat_" + e.category))}</span><span class="stamp stamp-${esc(e.type)}">${esc(t("type_" + e.type))}</span>${state.scope === "all" ? `<span class="who">${esc(e.professor)}</span>` : ""}</div>
+        <p class="row-desc">${esc(e.description)}</p>
+        ${e.notes ? `<p class="row-notes">${esc(e.notes)}</p>` : ""}
+        ${mine ? `<div class="row-actions mobile-actions"><button type="button" class="mini" data-act="edit">${esc(t("edit"))}</button><button type="button" class="mini danger" data-act="del">${esc(t("del"))}</button></div>` : ""}
+      </div>
+    </article>`;
+  }).join("") : `<div class="empty"><b>${esc(t("emptyTitle"))}</b>${esc(t(state.scope === "mine" ? "emptyMine" : "emptyAll"))}</div>`;
+}
+function renderRoster() {
+  $("#roster").innerHTML = state.roster.map(n => `<button type="button" data-name="${esc(n)}" aria-pressed="${n === state.me}">${esc(n)}</button>`).join("");
+}
+let gateMode = "";
+function renderGate() {
+  if (!gateMode) return;
+  $("#gateTitle").textContent = t(gateMode === "denied" ? "gateDeniedTitle" : "gateTitle");
+  $("#gateText").textContent = t(gateMode === "denied" ? "gateDeniedText" : "gateText");
+}
+function showGate(mode) {
+  gateMode = mode; state.loaded = false;
+  $("#gate").hidden = false; $("#main").hidden = true; $("#fab").hidden = true; $("#meBtn").hidden = true; $("#nameModal").hidden = true;
+  document.body.classList.remove("sheet-open", "modal-open");
+  renderGate();
+}
+let toastTimer;
+function toast(msg) {
+  const el = $("#toast"); el.textContent = msg; el.classList.add("show");
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove("show"), 2200);
+}
+const openSheet = () => { document.body.classList.add("sheet-open"); };
+const closeSheet = () => { document.body.classList.remove("sheet-open"); };
+function openNames() { renderRoster(); $("#nameModal").hidden = false; document.body.classList.add("modal-open"); }
+function closeNames() { $("#nameModal").hidden = true; document.body.classList.remove("modal-open"); }
+
+/* ── actions ──────────────────────────────────────────── */
+let store = null;
+function watch() {
+  const range = state.period == null ? null : periodRange(state.period).map(ymd);
+  store.watchEntries(range, v => { state.entries = v; if (state.editing && !v[state.editing]) resetForm(); renderAll(); });
+}
+function resetForm(keepDate = true) {
+  state.editing = null;
+  if (!keepDate || !$("#fDate").value) $("#fDate").value = today();
+  $("#fDesc").value = ""; $("#fNotes").value = ""; $("#formErr").textContent = "";
+  renderForm();
+}
+function startEdit(id) {
+  const e = state.entries[id]; if (!e) return;
+  state.editing = id;
+  $("#fDate").value = e.date; $("#fDesc").value = e.description; $("#fNotes").value = e.notes || "";
+  setFormChoice(e.category, e.type);
+  $("#formErr").textContent = "";
+  renderForm(); openSheet();
+  if (matchMedia("(min-width:980px)").matches) $("#fDesc").focus();
+}
+async function submitForm(ev) {
+  ev.preventDefault();
+  const date = $("#fDate").value, description = $("#fDesc").value.trim(), notes = $("#fNotes").value.trim();
+  const category = ($("#fCats input:checked") || {}).value || formChoice.cat;
+  const type = ($("#fTypes input:checked") || {}).value || formChoice.type;
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) { $("#formErr").textContent = t("errDate"); return; }
+  if (!description) { $("#formErr").textContent = t("errDesc"); $("#fDesc").focus(); return; }
+  if (!state.me) { openNames(); return; }
+  const btn = $("#submitBtn"); btn.disabled = true; btn.textContent = t("saving"); $("#formErr").textContent = "";
+  try {
+    if (state.editing) {
+      await store.updateEntry(state.editing, { date, category, type, description, notes, updatedAt: Date.now() });
+      toast(t("updated"));
+    } else {
+      await store.addEntry({ date, professor: state.me, category, type, description, notes, createdAt: Date.now() });
+      toast(t("saved"));
+    }
+    formChoice.cat = category; formChoice.type = type;
+    // jump to the period that contains the saved date so the entry is visible
+    const p = periodOf(date);
+    if (state.period != null && state.period !== p) { state.period = p; watch(); }
+    state.scope = "mine";
+    resetForm(); closeSheet(); renderAll();
+  } catch (err) {
+    console.error(err); $("#formErr").textContent = t("errSave");
+  } finally { btn.disabled = false; renderForm(); }
+}
+function downloadCsv() {
+  const list = visibleEntries().filter(e => state.cat === "all" || e.category === state.cat).reverse();
+  if (!list.length) { toast(t("csvEmpty")); return; }
+  const q = v => `"${String(v ?? "").replace(/"/g, '""')}"`;
+  const lines = [t("csvHead").map(q).join(",")].concat(list.map(e =>
+    [e.date, e.professor, t("cat_" + e.category), t("type_" + e.type), e.description, e.notes || "", fmtRangePlain(periodOf(e.date))].map(q).join(",")));
+  const blob = new Blob(["﻿" + lines.join("\r\n")], { type: "text/csv;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `AIM-activity_${state.period == null ? "all" : fmtRangePlain(state.period).replace(/ ~ /, "_")}_${state.scope}.csv`;
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  toast(t("csvDone"));
+}
+
+/* ── events ───────────────────────────────────────────── */
+$(".lang").addEventListener("click", e => { const b = e.target.closest("[data-lang]"); if (!b) return; state.lang = b.dataset.lang; ls.set("aimlog.lang", state.lang); applyI18n(); });
+$("#meBtn").addEventListener("click", openNames);
+$("#fab").addEventListener("click", () => { if (state.editing) resetForm(); openSheet(); });
+$("#closeSheet").addEventListener("click", closeSheet);
+$("#scrim").addEventListener("click", () => { closeSheet(); if (state.me) closeNames(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") { closeSheet(); if (state.me) closeNames(); } });
+$("#entryForm").addEventListener("submit", submitForm);
+$("#entryForm").addEventListener("change", e => { if (e.target.name === "cat") formChoice.cat = e.target.value; if (e.target.name === "type") formChoice.type = e.target.value; });
+$("#cancelEdit").addEventListener("click", () => { resetForm(); closeSheet(); });
+$("#prevP").addEventListener("click", () => { state.period--; watch(); renderAll(); });
+$("#nextP").addEventListener("click", () => { state.period++; watch(); renderAll(); });
+$("#pToday").addEventListener("click", () => { state.period = periodOf(today()); watch(); renderAll(); });
+$("#pAll").addEventListener("click", () => { state.period = state.period == null ? periodOf(today()) : null; watch(); renderAll(); });
+$(".seg").addEventListener("click", e => { const b = e.target.closest("[data-scope]"); if (!b) return; state.scope = b.dataset.scope; renderAll(); });
+$("#stats").addEventListener("click", e => { const b = e.target.closest("[data-cat]"); if (!b) return; state.cat = b.dataset.cat === state.cat ? "all" : b.dataset.cat; renderAll(); });
+$("#csvBtn").addEventListener("click", downloadCsv);
+$("#rows").addEventListener("click", async e => {
+  const b = e.target.closest("[data-act]"); if (!b) return;
+  const id = b.closest(".row").dataset.id;
+  if (b.dataset.act === "edit") return startEdit(id);
+  if (!b.classList.contains("armed")) {            // two-step delete, no browser dialog
+    b.classList.add("armed"); b.textContent = t("delConfirm");
+    setTimeout(() => { if (b.isConnected) { b.classList.remove("armed"); b.textContent = t("del"); } }, 3500);
+    return;
+  }
+  try { await store.removeEntry(id); toast(t("deleted")); } catch (err) { console.error(err); toast(t("errSave")); }
+});
+$("#roster").addEventListener("click", e => {
+  const b = e.target.closest("[data-name]"); if (!b) return;
+  state.me = b.dataset.name; ls.set(DEMO ? "aimlog.demo.me" : "aimlog.me", state.me);
+  closeNames(); resetForm(); renderAll();
+});
+$("#addNameForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const name = $("#addNameInput").value.trim().replace(/\s+/g, " ");
+  if (!name) return;
+  if (state.roster.some(n => n.toLowerCase() === name.toLowerCase())) { toast(t("nameExists")); return; }
+  try { await store.addProfessor(name); $("#addNameInput").value = ""; } catch (err) { console.error(err); toast(t("errSave")); }
+});
+$("#gateForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const raw = $("#gateInput").value.trim();
+  const m = raw.match(/[#?&]k=([A-Za-z0-9_-]{16,64})/) || raw.match(/^([A-Za-z0-9_-]{16,64})$/);
+  if (!m) { showGate("denied"); return; }
+  ls.set("aimlog.key", m[1]); location.hash = "k=" + m[1]; location.reload();
+});
+
+/* ── boot ─────────────────────────────────────────────── */
+async function boot() {
+  applyI18n();
+  $("#fDate").value = today();
+  if (DEMO) { $("#demoBar").hidden = false; store = demoStore(); }
+  else {
+    const m = location.hash.match(/k=([A-Za-z0-9_-]{16,64})/);
+    state.key = m ? m[1] : (ls.get("aimlog.key") || "");
+    if (!/^[A-Za-z0-9_-]{16,64}$/.test(state.key)) { showGate("nokey"); return; }
+    try { store = await firebaseStore(state.key); }
+    catch (err) { console.error(err); showGate("nokey"); $("#gateText").textContent = t("errSave"); return; }
+  }
+  let ok = false;
+  store.start({
+    onStatus: c => { state.connected = c; if (state.loaded) renderAll(); },
+    onDenied: () => { ls.set("aimlog.key", null); showGate("denied"); },
+    onRoster: names => {
+      state.roster = names;
+      if (!ok) {                      // first successful read ⇒ the link is valid
+        ok = true; state.loaded = true;
+        if (!DEMO) ls.set("aimlog.key", state.key);
+        $("#gate").hidden = true; $("#main").hidden = false; $("#fab").hidden = false; $("#meBtn").hidden = false;
+        watch(); renderForm(); renderAll();
+        if (!state.me) openNames();
+      }
+      if (!$("#nameModal").hidden) renderRoster();
+    }
+  });
+}
+boot();
+</script>
+</body>
+</html>
